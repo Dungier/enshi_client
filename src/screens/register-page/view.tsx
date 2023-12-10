@@ -1,20 +1,15 @@
 "use client";
-
-import { signIn } from "next-auth/react";
-import { FC } from "react";
+import axios from "axios";
+import { redirect, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { IRegister } from "./types";
 
-export const AuthPage: FC = () => {
-  const { register, handleSubmit, setError, formState } = useForm();
-
-  const onSubmit = async (data) => {
-    console.log(data);
-    await signIn("credentials", {
-      ...data,
-      operation: "register",
-
-      redirect: false,
-    });
+export const RegisterPage = () => {
+  const { register, handleSubmit, setError, formState } = useForm<IRegister>();
+  const router = useRouter();
+  const onSubmit = async (data: IRegister) => {
+    await axios.post("/api/register", data);
+    router.push("/login");
   };
 
   return (
@@ -36,7 +31,7 @@ export const AuthPage: FC = () => {
           <p>{formState.errors.password.message}</p>
         )}
       </div>
-      <button type="submit">Login</button>
+      <button type="submit">Register</button>
     </form>
   );
 };

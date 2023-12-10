@@ -1,0 +1,155 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Anime {
+  anime_id          BigInt           @id @default(autoincrement())
+  id                String?          @db.VarChar(255)
+  type              String?          @db.VarChar(255)
+  link              String           @db.VarChar(255)
+  title             String           @db.VarChar(255)
+  title_orig        String?          @db.VarChar(255)
+  other_title       String?          @db.VarChar(255)
+  translation       Json?
+  year              Int?
+  last_season       Int?
+  last_episode      Int?
+  episodes_count    Int?
+  kinopoisk_id      String?          @db.VarChar(255)
+  imdb_id           String?          @db.VarChar(255)
+  worldart_link     String?          @db.VarChar(255)
+  shikimori_id      String?          @db.VarChar(255)
+  quality           String?          @db.VarChar(255)
+  camrip            Boolean?
+  lgbt              Boolean?
+  blocked_countries String[]         @db.VarChar(255)
+  blocked_seasons   Json?
+  material_data     Json?
+  createdAt         DateTime         @db.Timestamptz(6)
+  updatedAt         DateTime         @db.Timestamptz(6)
+  favouriteAnime    FavouriteAnime[]
+  seasons           Season[]
+
+  @@index([id], map: "anime_id_index")
+  @@index([title], map: "anime_title_index")
+}
+
+model Episode {
+  id        Int      @id @default(autoincrement())
+  seasonId  BigInt?
+  link      String?  @db.VarChar(255)
+  createdAt DateTime @db.Timestamptz(6)
+  updatedAt DateTime @db.Timestamptz(6)
+  seasons   Season? @relation(fields: [id], references: [id], onDelete: Cascade)
+}
+
+model Favourite {
+  id        Int      @id @default(autoincrement())
+  user_id   Int?
+  createdAt DateTime @db.Timestamptz(6)
+  updatedAt DateTime @db.Timestamptz(6)
+  user     User?   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model FavouriteAnime {
+  viewedId  Int
+  animeId   BigInt
+  createdAt DateTime @db.Timestamptz(6)
+  updatedAt DateTime @db.Timestamptz(6)
+  anime     Anime    @relation(fields: [animeId], references: [anime_id], onDelete: Cascade)
+  viewed    Viewed   @relation(fields: [viewedId], references: [id], onDelete: Cascade)
+
+  @@id([viewedId, animeId])
+}
+
+model HomeSlider {
+  slider_id   BigInt   @id @default(autoincrement())
+  image_url   String?  @db.VarChar(255)
+  title       String?  @db.VarChar(255)
+  description String?  @db.VarChar(255)
+  createdAt   DateTime @db.Timestamptz(6)
+  updatedAt   DateTime @db.Timestamptz(6)
+
+  @@map("home-slider")
+}
+
+model Season {
+  id        Int        @id @default(autoincrement())
+  animeId   BigInt?
+  link      String?    @db.VarChar(255)
+  createdAt DateTime   @db.Timestamptz(6)
+  updatedAt DateTime   @db.Timestamptz(6)
+  episodes  Episode[]
+  anime     Anime?     @relation(fields: [animeId], references: [anime_id], onDelete: Cascade)
+}
+
+
+model Viewed {
+  id             Int              @id @default(autoincrement())
+  user_id        Int?
+  createdAt      DateTime         @db.Timestamptz(6)
+  updatedAt      DateTime         @db.Timestamptz(6)
+  favouriteAnime FavouriteAnime[]
+  user          User?           @relation(fields: [user_id], references: [id], onDelete: NoAction)
+}
+
+model User {
+  id              Int      @id @default(autoincrement())
+  email           String      @unique @db.VarChar(255)
+  password        String?      @db.VarChar(255)
+  login           String      @unique @db.VarChar(255)
+  avatar_url      String?     @db.VarChar(255)
+  mintues_watched Int?
+  createdAt       DateTime    @db.Timestamptz(6)
+  updatedAt       DateTime    @db.Timestamptz(6)
+  admin           Boolean?
+  favourite       Favourite[]
+  viewed          Viewed[]
+  accounts      Account[]
+  sessions      Session[]
+  @@index([login], map: "user_login_index")
+}
+
+
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             Int
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       Int
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
