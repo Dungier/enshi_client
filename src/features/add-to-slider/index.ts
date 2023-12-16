@@ -1,0 +1,1 @@
+export { AddToSlider } from "./view";

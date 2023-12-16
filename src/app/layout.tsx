@@ -6,6 +6,10 @@ import { Footer } from "@/widgets/footer";
 import { NavBar } from "@/widgets/navbar";
 import { getFonts } from "@/assets/fonts";
 import { PalleteTheme } from "@/assets/pallete-theme";
+import { MainContainer } from "@/shared/containers/main-container";
+import { Wrapper } from "@/shared/containers/root-wrapper";
+import { StylesProvider } from "@/providers/styles-provider";
+import { TanstackProvider } from "@/providers/tanstack-provider";
 
 export const metadata: Metadata = {
   title: "Enshi.",
@@ -34,15 +38,21 @@ export default function RootLayout({
     <html lang="ru">
       <body className={getFonts()}>
         <ServiceWorkerRegister />
-        <AuthProvider>
-          <ColorModeProvider>
-            <PalleteTheme>
-              <NavBar />
-              {children}
-              <Footer />
-            </PalleteTheme>
-          </ColorModeProvider>
-        </AuthProvider>
+        <TanstackProvider>
+          <AuthProvider>
+            <ColorModeProvider>
+              <PalleteTheme>
+                <StylesProvider>
+                  <Wrapper>
+                    <NavBar />
+                    <MainContainer>{children}</MainContainer>
+                    <Footer />
+                  </Wrapper>
+                </StylesProvider>
+              </PalleteTheme>
+            </ColorModeProvider>
+          </AuthProvider>
+        </TanstackProvider>
       </body>
     </html>
   );

@@ -20,21 +20,19 @@ declare module "@mui/material/styles" {
 
 export const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
   typography: {
-    fontFamily: "var(--red-hat-text-font)",
+    fontFamily: "var(--montserrat-font)",
     fontSize: 14,
     ...(mode === "light" && {
       h1: {
-        color: "#0E0E0E",
-        fontSize: "2.5rem",
-        lineHeight: "3rem",
+        color: "#FFFFFF",
+        fontSize: "2.1875rem",
         fontWeight: 700,
       },
     }),
     ...(mode === "dark" && {
       h1: {
         color: "#FFFFFF",
-        fontSize: "2.5rem",
-        lineHeight: "3rem",
+        fontSize: "2.1875rem",
         fontWeight: 700,
       },
     }),
@@ -116,22 +114,8 @@ export const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
       light: "rgba(253, 242, 242, 1)",
     },
     purple: {
-      main: "#7C69F4",
+      main: "#8B54FD",
     },
-    ...(mode === "light" && {
-      toggleButton: {
-        main: "#E1DFFD",
-        light: "#7C69F4",
-        contrastText: "#7C69F4",
-      },
-    }),
-    ...(mode === "dark" && {
-      toggleButton: {
-        main: "#080809",
-        light: "#313035",
-        contrastText: "#A9B7BD",
-      },
-    }),
     ...(mode === "light" && {
       gray: {
         main: "#F5F3F8",
@@ -158,26 +142,26 @@ export const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
     }),
     ...(mode === "dark" && {
       background: {
-        default: "#2D2D2D",
-        paper: "#1A191F",
+        default: "#333238",
+        paper: "#333238",
       },
     }),
     ...(mode === "light" && {
       background: {
         default: "#FFFFFF",
-        paper: "#FAFDFF",
+        paper: "#FFFFFF",
       },
     }),
     ...(mode === "light" && {
       text: {
-        primary: "#0E0E0E",
-        secondary: "#7C69F4",
+        primary: "#1F1F25",
+        secondary: "#828282",
       },
     }),
     ...(mode === "dark" && {
       text: {
-        primary: "#FFFFFF",
-        secondary: "#FFFFFF",
+        primary: "#F5F5F5",
+        secondary: "#B1ADB1",
       },
     }),
   },
@@ -209,21 +193,6 @@ export const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
               background: "#F5F3F8",
               color: "#AFB6BE",
             }),
-          },
-        },
-      },
-    },
-    MuiCheckbox: {
-      defaultProps: {
-        // checkedIcon: <IcCheckboxChecked />,
-        // icon: <IcCheckboxUnchecked />,
-      },
-      styleOverrides: {
-        root: {
-          // width: '22px',
-          // height: '22px'
-          "&.MuiCheckbox-root:hover": {
-            background: "transparent",
           },
         },
       },

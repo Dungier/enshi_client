@@ -1,0 +1,1 @@
+export { BlockAnime } from "./view";

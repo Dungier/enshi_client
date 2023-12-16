@@ -1,0 +1,1 @@
+export { AdminSlide } from "./view";

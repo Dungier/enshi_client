@@ -1,0 +1,1 @@
+export { AddAnimeModal } from "./view";

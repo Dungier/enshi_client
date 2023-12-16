@@ -28,7 +28,7 @@ export const ColorModeProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <ColorModeContext.Provider value={{ mode: mode || "dark", toggleMode }}>
-      <div className={mode}>{children}</div>
+      {children}
     </ColorModeContext.Provider>
   );
 };

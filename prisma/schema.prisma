@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Anime {
-  anime_id          BigInt           @id @default(autoincrement())
+  anime_id          Int           @id @default(autoincrement())
   id                String?          @db.VarChar(255)
   type              String?          @db.VarChar(255)
   link              String           @db.VarChar(255)
@@ -34,14 +34,19 @@ model Anime {
   updatedAt         DateTime         @db.Timestamptz(6)
   favouriteAnime    FavouriteAnime[]
   seasons           Season[]
-
+  blocked           Boolean          @default(false)
+  rating            Float            @default(0)
+  top               Boolean          @default(false)  
+  top_order         Int              @default(-1)  
+  popular           Boolean          @default(false)   
+  popular_order     Int              @default(-1) 
   @@index([id], map: "anime_id_index")
   @@index([title], map: "anime_title_index")
 }
 
 model Episode {
   id        Int      @id @default(autoincrement())
-  seasonId  BigInt?
+  seasonId  Int?
   link      String?  @db.VarChar(255)
   createdAt DateTime @db.Timestamptz(6)
   updatedAt DateTime @db.Timestamptz(6)
@@ -58,7 +63,7 @@ model Favourite {
 
 model FavouriteAnime {
   viewedId  Int
-  animeId   BigInt
+  animeId   Int
   createdAt DateTime @db.Timestamptz(6)
   updatedAt DateTime @db.Timestamptz(6)
   anime     Anime    @relation(fields: [animeId], references: [anime_id], onDelete: Cascade)
@@ -68,19 +73,27 @@ model FavouriteAnime {
 }
 
 model HomeSlider {
-  slider_id   BigInt   @id @default(autoincrement())
+  id   Int   @id @default(autoincrement())
   image_url   String?  @db.VarChar(255)
+  season      Int
+  rating      Int
   title       String?  @db.VarChar(255)
   description String?  @db.VarChar(255)
   createdAt   DateTime @db.Timestamptz(6)
   updatedAt   DateTime @db.Timestamptz(6)
+  order       Int
+  anime_id Int
 
-  @@map("home-slider")
+  @@map("HomeSlider")
 }
+
+
+
+
 
 model Season {
   id        Int        @id @default(autoincrement())
-  animeId   BigInt?
+  animeId   Int?
   link      String?    @db.VarChar(255)
   createdAt DateTime   @db.Timestamptz(6)
   updatedAt DateTime   @db.Timestamptz(6)
@@ -107,34 +120,16 @@ model User {
   mintues_watched Int?
   createdAt       DateTime    @db.Timestamptz(6)
   updatedAt       DateTime    @db.Timestamptz(6)
-  admin           Boolean?
+  admin           Boolean     @default(false)
   favourite       Favourite[]
   viewed          Viewed[]
-  accounts      Account[]
   sessions      Session[]
   @@index([login], map: "user_login_index")
 }
 
 
 
-model Account {
-  id                 String  @id @default(cuid())
-  userId             Int
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-}
 
 model Session {
   id           String   @id @default(cuid())

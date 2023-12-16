@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE "Anime" (
-    "anime_id" BIGSERIAL NOT NULL,
+    "anime_id" SERIAL NOT NULL,
     "id" VARCHAR(255),
     "type" VARCHAR(255),
     "link" VARCHAR(255) NOT NULL,
@@ -24,6 +24,8 @@ CREATE TABLE "Anime" (
     "material_data" JSONB,
     "createdAt" TIMESTAMPTZ(6) NOT NULL,
     "updatedAt" TIMESTAMPTZ(6) NOT NULL,
+    "blocked" BOOLEAN NOT NULL DEFAULT false,
+    "rating" DOUBLE PRECISION NOT NULL DEFAULT 0,
 
     CONSTRAINT "Anime_pkey" PRIMARY KEY ("anime_id")
 );
@@ -31,7 +33,7 @@ CREATE TABLE "Anime" (
 -- CreateTable
 CREATE TABLE "Episode" (
     "id" SERIAL NOT NULL,
-    "seasonId" BIGINT,
+    "seasonId" INTEGER,
     "link" VARCHAR(255),
     "createdAt" TIMESTAMPTZ(6) NOT NULL,
     "updatedAt" TIMESTAMPTZ(6) NOT NULL,
@@ -42,7 +44,7 @@ CREATE TABLE "Episode" (
 -- CreateTable
 CREATE TABLE "Favourite" (
     "id" SERIAL NOT NULL,
-    "user_id" BIGINT,
+    "user_id" INTEGER,
     "createdAt" TIMESTAMPTZ(6) NOT NULL,
     "updatedAt" TIMESTAMPTZ(6) NOT NULL,
 
@@ -52,7 +54,7 @@ CREATE TABLE "Favourite" (
 -- CreateTable
 CREATE TABLE "FavouriteAnime" (
     "viewedId" INTEGER NOT NULL,
-    "animeId" BIGINT NOT NULL,
+    "animeId" INTEGER NOT NULL,
     "createdAt" TIMESTAMPTZ(6) NOT NULL,
     "updatedAt" TIMESTAMPTZ(6) NOT NULL,
 
@@ -61,20 +63,21 @@ CREATE TABLE "FavouriteAnime" (
 
 -- CreateTable
 CREATE TABLE "home-slider" (
-    "slider_id" BIGSERIAL NOT NULL,
+    "id" SERIAL NOT NULL,
     "image_url" VARCHAR(255),
     "title" VARCHAR(255),
     "description" VARCHAR(255),
     "createdAt" TIMESTAMPTZ(6) NOT NULL,
     "updatedAt" TIMESTAMPTZ(6) NOT NULL,
+    "anime_id" INTEGER NOT NULL,
 
-    CONSTRAINT "home-slider_pkey" PRIMARY KEY ("slider_id")
+    CONSTRAINT "home-slider_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Season" (
     "id" SERIAL NOT NULL,
-    "animeId" BIGINT,
+    "animeId" INTEGER,
     "link" VARCHAR(255),
     "createdAt" TIMESTAMPTZ(6) NOT NULL,
     "updatedAt" TIMESTAMPTZ(6) NOT NULL,
@@ -85,7 +88,7 @@ CREATE TABLE "Season" (
 -- CreateTable
 CREATE TABLE "Viewed" (
     "id" SERIAL NOT NULL,
-    "user_id" BIGINT,
+    "user_id" INTEGER,
     "createdAt" TIMESTAMPTZ(6) NOT NULL,
     "updatedAt" TIMESTAMPTZ(6) NOT NULL,
 
@@ -94,42 +97,24 @@ CREATE TABLE "Viewed" (
 
 -- CreateTable
 CREATE TABLE "User" (
-    "id" BIGSERIAL NOT NULL,
+    "id" SERIAL NOT NULL,
     "email" VARCHAR(255) NOT NULL,
-    "password" VARCHAR(255) NOT NULL,
+    "password" VARCHAR(255),
     "login" VARCHAR(255) NOT NULL,
     "avatar_url" VARCHAR(255),
-    "mintues_watched" BIGINT,
+    "mintues_watched" INTEGER,
     "createdAt" TIMESTAMPTZ(6) NOT NULL,
     "updatedAt" TIMESTAMPTZ(6) NOT NULL,
-    "admin" BOOLEAN,
+    "admin" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "Account" (
-    "id" TEXT NOT NULL,
-    "userId" BIGINT NOT NULL,
-    "type" TEXT NOT NULL,
-    "provider" TEXT NOT NULL,
-    "providerAccountId" TEXT NOT NULL,
-    "refresh_token" TEXT,
-    "access_token" TEXT,
-    "expires_at" INTEGER,
-    "token_type" TEXT,
-    "scope" TEXT,
-    "id_token" TEXT,
-    "session_state" TEXT,
-
-    CONSTRAINT "Account_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Session" (
     "id" TEXT NOT NULL,
     "sessionToken" TEXT NOT NULL,
-    "userId" BIGINT NOT NULL,
+    "userId" INTEGER NOT NULL,
     "expires" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Session_pkey" PRIMARY KEY ("id")
@@ -158,9 +143,6 @@ CREATE UNIQUE INDEX "User_login_key" ON "User"("login");
 CREATE INDEX "user_login_index" ON "User"("login");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Session_sessionToken_key" ON "Session"("sessionToken");
 
 -- CreateIndex
@@ -186,9 +168,6 @@ ALTER TABLE "Season" ADD CONSTRAINT "Season_animeId_fkey" FOREIGN KEY ("animeId"
 
 -- AddForeignKey
 ALTER TABLE "Viewed" ADD CONSTRAINT "Viewed_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE NO ACTION ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

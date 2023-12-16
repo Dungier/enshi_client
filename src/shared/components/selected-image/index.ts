@@ -1,0 +1,1 @@
+export { SelectedImage } from "./view";

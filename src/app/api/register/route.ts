@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
       return new NextResponse("Email или логин заняты", {
         status: 402,
       });
-    
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await prisma.user.create({
@@ -36,6 +36,7 @@ export async function POST(request: NextRequest) {
     });
     return NextResponse.json(user);
   } catch (error) {
+    console.error(error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }

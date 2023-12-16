@@ -1,11 +1,36 @@
+import { SearchAnime } from "@/features/search-anime";
 import { ThemeToggler } from "@/features/theme-toggler";
-import { Box, Typography } from "@mui/material";
+import { Logo } from "@/shared/components/logo";
+import { ProfileButton } from "@/shared/components/profile-button";
+import { SocialLinks } from "@/shared/components/social-links";
+import { Box, Container, Grid, Typography } from "@mui/material";
+import { Menu } from "./lib/menu";
 
 export const NavBar = () => {
   return (
     <header>
-      <Typography variant="h1">dsa</Typography>
-      <ThemeToggler />
+      <Container>
+        <Grid container>
+          <Grid item>
+            <Menu />
+          </Grid>
+          <Grid item>
+            <Logo />
+          </Grid>
+          <Grid item>
+            <SearchAnime />
+          </Grid>
+          <Grid item>
+            <ThemeToggler />
+          </Grid>
+          <Grid item>
+            <SocialLinks />
+          </Grid>
+          <Grid item>
+            <ProfileButton />
+          </Grid>
+        </Grid>
+      </Container>
     </header>
   );
 };

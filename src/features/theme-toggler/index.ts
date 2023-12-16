@@ -1,1 +1,1 @@
-export { ThemeToggler } from './view';
+export { ThemeToggler } from "./view";
