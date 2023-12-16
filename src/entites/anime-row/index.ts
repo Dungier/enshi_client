@@ -1,0 +1,1 @@
+export { AnimeRow } from "./view";

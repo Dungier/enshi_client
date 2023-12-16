@@ -1,10 +1,11 @@
 import { IAnime } from "@/shared/types/anime.types";
 import { FC } from "react";
 import Image from "next/image";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
+import Link from "next/link";
 export const Anime: FC<{ anime: IAnime }> = ({ anime }) => {
   return (
-    <Box>
+    <Link href={`/anime/${anime.anime_id}`}>
       <Image
         src={anime.material_data.poster_url}
         alt={anime.title}
@@ -12,6 +13,6 @@ export const Anime: FC<{ anime: IAnime }> = ({ anime }) => {
         height={200}
       />
       <Typography>{anime.title}</Typography>
-    </Box>
+    </Link>
   );
 };

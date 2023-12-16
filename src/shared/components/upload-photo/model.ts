@@ -19,4 +19,5 @@ class PhotoService {
     return data;
   }
 }
+
 export default new PhotoService();

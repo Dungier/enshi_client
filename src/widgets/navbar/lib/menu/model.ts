@@ -5,6 +5,10 @@ export const navList = (
 ): { link: string; label: string }[] =>
   [
     {
+      link: "/",
+      label: "Главная",
+    },
+    {
       link: "/catalog",
       label: "Каталог",
     },

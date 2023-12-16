@@ -1,0 +1,1 @@
+export { AnimeTypeSwitcher } from "./view";

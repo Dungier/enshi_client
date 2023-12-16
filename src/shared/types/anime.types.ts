@@ -23,7 +23,6 @@ export interface IAnime {
   material_data?: any;
   createdAt: Date;
   updatedAt: Date;
-  seasons: ISeason[];
 }
 
 export interface ISeason {

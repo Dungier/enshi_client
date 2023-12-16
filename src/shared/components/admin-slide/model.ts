@@ -29,4 +29,5 @@ class DeleteAnimeService {
     }
   }
 }
+
 export default new DeleteAnimeService();

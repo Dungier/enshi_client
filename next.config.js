@@ -20,6 +20,18 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/enshi_api/:path*",
+        destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`,
+      },
+      {
+        source: "/uploads/:path*",
+        destination: `${process.env.NEXT_PUBLIC_API_URL}/uploads/:path*`,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
