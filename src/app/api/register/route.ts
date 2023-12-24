@@ -34,6 +34,20 @@ export async function POST(request: NextRequest) {
         admin: false,
       },
     });
+    await prisma.viewed.create({
+      data: {
+        user_id: user.id,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    });
+    await prisma.favourite.create({
+      data: {
+        user_id: user.id,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    });
     return NextResponse.json(user);
   } catch (error) {
     console.error(error);

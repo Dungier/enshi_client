@@ -6,6 +6,7 @@ import { Pagination } from "@/shared/components/pagination";
 import { Anime } from "@/shared/components/anime";
 import { useQuery } from "@tanstack/react-query";
 import { getHighRated, getNew, getTop } from "./model";
+import { IAnime } from "@/shared/types/anime.types";
 
 export const AnimeList: FC<IAnimeList> = ({ anime, count, type }) => {
   const [page, setPage] = useState<number>(1);
@@ -20,13 +21,15 @@ export const AnimeList: FC<IAnimeList> = ({ anime, count, type }) => {
         return await getTop({ page });
       }
     },
-    initialData: page === 1 ? anime : [],
+    initialData: page === 1 ? (anime as IAnime[]) : ([] as IAnime[]),
   });
 
   return !isLoading ? (
     <div>
       {animes &&
-        animes.map((item) => <Anime anime={item} key={item.anime_id} />)}
+        animes.map((item) => (
+          <Anime anime={item as IAnime} key={item.anime_id} />
+        ))}
       <Pagination count={count} setPage={setPage} />
     </div>
   ) : null;

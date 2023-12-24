@@ -14,5 +14,5 @@ export const checkAdmin = async (): Promise<boolean> => {
   });
   if (!user) return false;
 
-  return user.admin;
+  return user.admin === true;
 };

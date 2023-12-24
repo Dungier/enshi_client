@@ -3,9 +3,7 @@ import { AnimePlayer } from "@/entites/anime-player";
 import { IAnime } from "@/shared/types/anime.types";
 import { FC } from "react";
 
-export const AnimePage: FC<{ anime: Omit<IAnime, "seasons"> }> = ({
-  anime,
-}) => {
+export const AnimePage: FC<{ anime: IAnime }> = ({ anime }) => {
   return (
     <section>
       <AnimeInfo anime={anime} />

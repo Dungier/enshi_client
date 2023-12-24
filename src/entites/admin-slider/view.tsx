@@ -4,7 +4,6 @@ import React, { FC, useCallback, useState } from "react";
 import {
   DropResult,
   DragDropContext,
-  DraggableProvided,
   Draggable,
 } from "react-beautiful-dnd";
 import AdminSliderService from "./model";

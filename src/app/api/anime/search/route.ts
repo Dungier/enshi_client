@@ -41,12 +41,17 @@ export async function GET(request: NextRequest) {
         ],
         blocked: false,
       },
+      include: { material_data: true },
       skip: skip,
       take: limit,
     });
 
     const totalItems = await prisma.anime.count({
       where: {
+        rating: {
+          gte: 0,
+          lte: 10,
+        },
         OR: [
           {
             title: {

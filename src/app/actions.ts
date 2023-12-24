@@ -3,9 +3,9 @@
 import { cookies } from "next/headers";
 
 export async function setCookie(name: string, value: string) {
-  await cookies().set(name, value);
+   cookies().set(name, value);
 }
 
 export async function getCookie(name: string) {
-  return await cookies().get(name);
+  return  cookies().get(name);
 }

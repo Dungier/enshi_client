@@ -6,7 +6,7 @@ import { checkAdmin } from "@/shared/hooks/check-admin";
 
 export async function POST(request: NextRequest) {
   try {
-    const admin = checkAdmin();
+    const admin = await checkAdmin();
     if (!admin)
       return new NextResponse("Пошел нахуй!!!", {
         status: 403,
