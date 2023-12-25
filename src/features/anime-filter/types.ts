@@ -1,10 +1,12 @@
 export type FilterType = {
-  id: string;
+  id: number | string;
   title: string;
 };
 
-export interface AnimeFilterProps {
-  setYearFilters: (arg: FilterType[]) => void;
-  setStatusFilters: (arg: FilterType[]) => void;
-  setGenreFilters: (arg: FilterType[]) => void;
+export interface IAnimeFilters {
+  genres: FilterType[];
+  years: FilterType[];
+  statuses: FilterType[];
 }
+
+export type IAnimeFilterType = "genre" | "year" | "status";

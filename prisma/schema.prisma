@@ -39,7 +39,7 @@ model Anime {
   createdAt         DateTime         @db.Timestamptz(6)
   updatedAt         DateTime         @db.Timestamptz(6)
   FavouriteAnime    FavouriteAnime[]
-  GenreAnime        GenreAnime[]
+  genres            Genre[]
   material_data     MaterialData?
   ViewedAnime       ViewedAnime[]
 
@@ -74,8 +74,7 @@ model Genre {
   count      Int?
   createdAt  DateTime     @db.Timestamptz(6)
   updatedAt  DateTime     @db.Timestamptz(6)
-  GenreAnime GenreAnime[]
-
+  anime      Anime[]
   @@index([title], map: "genre-title-index")
 }
 
@@ -85,10 +84,6 @@ model GenreAnime {
   anime_id  Int?
   createdAt DateTime @db.Timestamptz(6)
   updatedAt DateTime @db.Timestamptz(6)
-  Anime     Anime?   @relation(fields: [anime_id], references: [anime_id], onDelete: Cascade)
-  Genre     Genre?   @relation(fields: [genre_id], references: [id], onDelete: Cascade)
-
-  @@unique([genre_id, anime_id])
 }
 
 model HomeSlider {

@@ -9,6 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Ic_Chevron from "@/assets/icons/ic_chevron__sm.svg";
 import { AnimeRow } from "@/entites/anime-row";
+import { AnimeFilterProvider } from "@/shared/context/anime-filter";
 
 export const HomePage: FC<IHomePage> = ({
   sliders,
@@ -33,11 +34,13 @@ export const HomePage: FC<IHomePage> = ({
       </Link>
 
       <AnimeTypeSwitcher type={type} setType={setType} />
-      <AnimeList
-        anime={highRatedAnime}
-        count={highRatedAnimeCount}
-        type={type}
-      />
+      <AnimeFilterProvider>
+        <AnimeList
+          anime={highRatedAnime}
+          count={highRatedAnimeCount}
+          type={type}
+        />
+      </AnimeFilterProvider>
     </main>
   );
 };

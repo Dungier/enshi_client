@@ -5,32 +5,53 @@ import { IAnimeList } from "./types";
 import { Pagination } from "@/shared/components/pagination";
 import { Anime } from "@/shared/components/anime";
 import { useQuery } from "@tanstack/react-query";
-import { getHighRated, getNew, getTop } from "./model";
+import { getCatalog, getHighRated, getNew, getTop } from "./model";
 import { IAnime } from "@/shared/types/anime.types";
+import { useAnimeFilters } from "@/shared/context/anime-filter";
 
 export const AnimeList: FC<IAnimeList> = ({ anime, count, type }) => {
   const [page, setPage] = useState<number>(1);
+  const [isRendered, setIsDataProceed] = useState<boolean>(false);
+  const { genres, statuses, years } = useAnimeFilters();
+  const queryFnMapping = {
+    catalog: getCatalog,
+    top: getTop,
+    "high-rated": getHighRated,
+    new: getNew,
+  };
+
   const { data: animes, isLoading } = useQuery({
-    queryKey: [type, page],
+    queryKey: [type, page, genres, years, statuses],
     queryFn: async () => {
-      if (type === "high-rated") {
-        return await getHighRated({ page });
-      } else if (type === "new") {
-        return await getNew({ page });
-      } else if (type === "top") {
-        return await getTop({ page });
+      if (type === "catalog") {
+        const queryFn = queryFnMapping[type];
+        const data = await queryFn({ page }, { genres, years, statuses });
+        setIsDataProceed(true);
+        return data;
+      } else {
+        const queryFn = queryFnMapping[type];
+        const data = await queryFn({ page });
+        setIsDataProceed(true);
+        return data;
       }
     },
-    initialData: page === 1 ? (anime as IAnime[]) : ([] as IAnime[]),
-  });
 
-  return !isLoading ? (
+    initialData: !isRendered
+      ? { anime: anime as IAnime[], count }
+      : { anime: [] as IAnime[], count },
+  });
+  if (isLoading) return null;
+  console.log(animes);
+  return (
     <div>
-      {animes &&
-        animes.map((item) => (
+      {animes?.anime &&
+        animes.anime.map((item) => (
           <Anime anime={item as IAnime} key={item.anime_id} />
         ))}
-      <Pagination count={count} setPage={setPage} />
+      <Pagination
+        count={type === "catalog" ? animes?.count : count}
+        setPage={setPage}
+      />
     </div>
-  ) : null;
+  );
 };

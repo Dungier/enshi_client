@@ -1,13 +1,11 @@
-"use client";
 import { FC } from "react";
 import { FilterButtonProps } from "./types";
 import { Button } from "@mui/material";
 
 export const FilterButton: FC<FilterButtonProps> = ({
-  setFilters,
-  type,
   label,
-  filters,
+  onClick,
+  type,
 }) => {
-  return <Button>{label}</Button>;
+  return <Button onClick={(e) => onClick(e, type)}>{label}</Button>;
 };

@@ -1,34 +1,26 @@
 "use client";
 
-import { ReactNode, useEffect, useState } from "react";
-import { ColorMode, ColorModeContext } from "./context";
-import { setCookie, getCookie } from "@/app/actions";
+import { ReactNode, useState } from "react";
+import { AnimeFilterContextType, AnimeFilterContext } from "./context";
+import { FilterType } from "@/features/anime-filter/types";
 
-export const ColorModeProvider = ({ children }: { children: ReactNode }) => {
-  const [mode, setMode] = useState<ColorMode>("dark");
+export const AnimeFilterProvider = ({ children }: { children: ReactNode }) => {
+  const [genres, setGenres] = useState<FilterType[]>([]);
+  const [years, setYears] = useState<FilterType[]>([]);
+  const [statuses, setStatuses] = useState<FilterType[]>([]);
 
-  useEffect(() => {
-    const handleInitializeCookies = async () => {
-      const storedMode = await getCookie("theme");
-      setMode((storedMode?.value as ColorMode) || "dark");
-    };
-    handleInitializeCookies();
-  }, []);
-
-  useEffect(() => {
-    const handleSetCookies = async () => {
-      await setCookie("theme", mode || "dark");
-    };
-    handleSetCookies();
-  }, [mode]);
-
-  const toggleMode = () => {
-    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+  const contextValue: AnimeFilterContextType = {
+    genres,
+    setGenres,
+    years,
+    setYears,
+    statuses,
+    setStatuses,
   };
 
   return (
-    <ColorModeContext.Provider value={{ mode: mode || "dark", toggleMode }}>
+    <AnimeFilterContext.Provider value={contextValue}>
       {children}
-    </ColorModeContext.Provider>
+    </AnimeFilterContext.Provider>
   );
 };

@@ -1,4 +1,0 @@
--- AlterTable
-ALTER TABLE "Anime" ADD COLUMN     "popular" BOOLEAN NOT NULL DEFAULT false,
-ADD COLUMN     "popular_order" INTEGER NOT NULL DEFAULT 0,
-ADD COLUMN     "top" BOOLEAN NOT NULL DEFAULT false;

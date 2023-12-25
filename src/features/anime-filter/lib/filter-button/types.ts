@@ -1,8 +1,11 @@
-import { IAnimeFilter } from "../../types";
+import React from "react";
+import { IAnimeFilterType } from "@/features/anime-filter/types";
 
 export interface FilterButtonProps {
   label: string;
-  type: "genre" | "year" | "status";
-  setFilters: (arg: IAnimeFilter) => void;
-  filters: Fil;
+  onClick: (
+    e: React.MouseEvent<HTMLButtonElement>,
+    type: IAnimeFilterType,
+  ) => void;
+  type: IAnimeFilterType;
 }

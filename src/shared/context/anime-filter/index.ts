@@ -1,2 +1,2 @@
-export { ColorModeProvider } from './view';
-export { useColorMode } from './hook';
+export { AnimeFilterProvider } from './view';
+export { useAnimeFilters } from './hook';

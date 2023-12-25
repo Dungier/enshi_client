@@ -1,14 +1,17 @@
-'use client';
+"use client";
 
-import { createContext } from 'react';
+import { createContext } from "react";
+import { FilterType } from "@/features/anime-filter/types";
 
-export type ColorMode = 'light' | 'dark';
-
-interface AnimeContextType {
-	mode: ColorMode;
-	toggleMode: () => void;
+export interface AnimeFilterContextType {
+  genres: FilterType[];
+  setGenres: (arg: FilterType[]) => void;
+  years: FilterType[];
+  setYears: (arg: FilterType[]) => void;
+  statuses: FilterType[];
+  setStatuses: (arg: FilterType[]) => void;
 }
 
-export const ColorModeContext = createContext<ColorModeContextType | undefined>(
-	undefined
-);
+export const AnimeFilterContext = createContext<
+  AnimeFilterContextType | undefined
+>(undefined);

@@ -4,4 +4,3 @@ export interface ICatalogPage {
   anime: IAnime[];
   count: number;
 }
-
