@@ -41,7 +41,7 @@ export const AnimeList: FC<IAnimeList> = ({ anime, count, type }) => {
       : { anime: [] as IAnime[], count },
   });
   if (isLoading) return null;
-  console.log(animes);
+
   return (
     <div>
       {animes?.anime &&

@@ -87,16 +87,17 @@ model GenreAnime {
 }
 
 model HomeSlider {
-  id          Int      @id @default(autoincrement())
-  image_url   String?  @db.VarChar(255)
-  season      Int?
-  rating      Int?
-  title       String?  @db.VarChar(255)
-  description String?  @db.VarChar(255)
-  order       Int?
-  anime_id    Int
-  createdAt   DateTime @db.Timestamptz(6)
-  updatedAt   DateTime @db.Timestamptz(6)
+  id                Int      @id @default(autoincrement())
+  image_url         String   @db.VarChar(255)
+  preview_image_url String   @db.VarChar(255)
+  season            Int?
+  rating            Int?
+  title             String?  @db.VarChar(255)
+  description       String?  @db.VarChar(255)
+  order             Int?
+  anime_id          Int
+  createdAt         DateTime @db.Timestamptz(6)
+  updatedAt         DateTime @db.Timestamptz(6)
 }
 
 model MaterialData {
@@ -154,8 +155,9 @@ model User {
   email           String?     @unique @db.VarChar(255)
   password        String?     @db.VarChar(255)
   login           String?     @unique @db.VarChar(255)
-  avatar_url      String?     @db.VarChar(255)
-  mintues_watched Int?
+  avatar_url      String      @db.VarChar(255) @default("/uploads/avatars/default.jpg")
+  wallpaper_url   String      @db.VarChar(255) @default("/uploads/wallpapers/default.jpg")
+  minutes_watched Int         @default(0)
   admin           Boolean?    @default(false)
   createdAt       DateTime    @db.Timestamptz(6)
   updatedAt       DateTime    @db.Timestamptz(6)
@@ -165,6 +167,8 @@ model User {
   @@index([email], map: "user_email_index")
   @@index([login], map: "user_login_index")
 }
+
+
 
 model Viewed {
   id          Int           @id @default(autoincrement())

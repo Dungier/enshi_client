@@ -1,33 +1,51 @@
-import axios from "axios";
-import { IDeleteSlide } from "./types";
+"use server";
+import prisma from "@/configs/prisma.config";
+import { IDeleteAnime, IDeleteSlide } from "./types";
 
-class DeleteAnimeService {
-  public async deleteSlide(dto: IDeleteSlide) {
-    try {
-      await axios.post("/api/admin/delete-slide", dto);
-    } catch (e) {
-      console.error(e);
-      throw new Error(`${e}`);
-    }
+export const deleteSlide = async (dto: IDeleteSlide) => {
+  try {
+    await prisma.homeSlider.delete({
+      where: {
+        id: dto.slider_id,
+      },
+    });
+  } catch (e) {
+    console.error(e);
+    throw new Error(`${e}`);
   }
-  public async deleteTop(dto: IDeleteSlide) {
-    try {
-      await axios.post("/api/admin/delete-top", { anime_id: dto.slider_id });
-    } catch (e) {
-      console.error(e);
-      throw new Error(`${e}`);
-    }
-  }
-  public async deletePopular(dto: IDeleteSlide) {
-    try {
-      await axios.post("/api/admin/delete-popular", {
-        anime_id: dto.slider_id,
-      });
-    } catch (e) {
-      console.error(e);
-      throw new Error(`${e}`);
-    }
-  }
-}
+};
 
-export default new DeleteAnimeService();
+export const deleteTop = async (dto: IDeleteAnime) => {
+  try {
+    await prisma.anime.update({
+      data: {
+        top: false,
+        top_order: -1,
+      },
+      where: {
+        anime_id: dto.id,
+      },
+      include: { material_data: true },
+    });
+  } catch (e) {
+    console.error(e);
+    throw new Error(`${e}`);
+  }
+};
+
+export const deletePopular = async (dto: IDeleteAnime) => {
+  try {
+    await prisma.anime.update({
+      data: {
+        popular: false,
+        popular_order: -1,
+      },
+      where: {
+        anime_id: dto.id,
+      },
+    });
+  } catch (e) {
+    console.error(e);
+    throw new Error(`${e}`);
+  }
+};

@@ -5,7 +5,7 @@ import { useCallback, useState } from "react";
 import { IAnime } from "@/shared/types/anime.types";
 import { Anime } from "@/shared/components/anime";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import BlockAnimeService from "./model";
+import { blockAnime } from "./model";
 
 export const BlockAnime = () => {
   const [anime, setAnime] = useState<IAnime | null>(null);
@@ -19,9 +19,9 @@ export const BlockAnime = () => {
   const queryClient = useQueryClient();
   const { mutateAsync } = useMutation({
     mutationKey: ["block-anime"],
-    mutationFn: async (data: IAnime) =>
-      await BlockAnimeService.blockAnime(data.anime_id),
+    mutationFn: async (data: IAnime) => await blockAnime(data.anime_id),
   });
+
   return (
     <Box>
       <SearchAnime setAnime={handleSetAnime} />

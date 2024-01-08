@@ -12,6 +12,7 @@ export default async function Home() {
     orderBy: { popular_order: "asc" },
     include: { material_data: true },
   });
+  
   const highRatedAnime = await prisma.anime.findMany({
     where: {
       rating: {

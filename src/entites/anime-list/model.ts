@@ -1,4 +1,5 @@
 "use server";
+
 import prisma from "@/configs/prisma.config";
 import { IPagination } from "./types";
 import { IAnime } from "@/shared/types/anime.types";

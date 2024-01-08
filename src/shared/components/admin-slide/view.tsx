@@ -1,23 +1,22 @@
 import { Box, Button, Typography } from "@mui/material";
 import { FC, memo } from "react";
-import DeleteAnimeService from "./model";
+import { deleteSlide, deletePopular, deleteTop } from "./model";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { IAdminSlider, IDeleteSlide } from "./types";
+import { IAdminSlider, IDeleteAnime, IDeleteSlide } from "./types";
 
 export const AdminSlide: FC<IAdminSlider> = memo(
   ({ slide, provided, type }) => {
+    const functionMapping = {
+      "admin-get-sliders": deleteSlide,
+      "admin-get-popular": deletePopular,
+      "admin-get-top": deleteTop,
+    };
+    const mutationFn = functionMapping[type];
     const queryClient = useQueryClient();
     const { mutateAsync } = useMutation({
       mutationKey: ["delete-slide"],
-      mutationFn: async (data: IDeleteSlide) => {
-        if (type === "admin-get-sliders") {
-          await DeleteAnimeService.deleteSlide(data);
-        } else if (type === "admin-get-popular") {
-          await DeleteAnimeService.deletePopular(data);
-        } else {
-          await DeleteAnimeService.deleteTop(data);
-        }
-
+      mutationFn: async (data: IDeleteSlide & IDeleteAnime) => {
+        await mutationFn(data);
         queryClient.refetchQueries({ queryKey: [type] });
       },
     });
@@ -31,7 +30,8 @@ export const AdminSlide: FC<IAdminSlider> = memo(
         <Button
           onClick={async () =>
             mutateAsync({
-              slider_id: slide.anime_id ? slide.anime_id : slide.id,
+              slider_id: slide.anime_id,
+              id: Number(slide.id),
             })
           }
         >

@@ -2,6 +2,7 @@ import { FC } from "react";
 import { IAnimeInfo } from "./types";
 import Image from "next/image";
 import { Typography } from "@mui/material";
+import { FavouriteButton } from "./lib/favourite-button";
 
 export const AnimeInfo: FC<IAnimeInfo> = ({ anime }) => {
   return (
@@ -31,6 +32,7 @@ export const AnimeInfo: FC<IAnimeInfo> = ({ anime }) => {
         </div>
         <Typography>{anime.material_data.description}</Typography>
       </div>
+      <FavouriteButton anime_id={anime.anime_id} />
     </div>
   );
 };

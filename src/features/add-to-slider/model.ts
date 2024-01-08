@@ -1,15 +1,28 @@
-import axios from "axios";
+"use server";
+import prisma from "@/configs/prisma.config";
 import { ICreateSlide } from "./types";
 
-class AddSliderService {
-  public async addSlide(dto: ICreateSlide) {
-    try {
-      await axios.post("/api/admin/add-to-slider", dto);
-    } catch (e) {
-      console.error(e);
-      throw new Error(`${e}`);
-    }
-  }
-}
+export const addSlide = async (dto: ICreateSlide) => {
+  try {
+    const { season, title, anime_id, rating, description, image_url } = dto;
 
-export default new AddSliderService();
+    const sliderCount = await prisma.homeSlider.count();
+
+    await prisma.homeSlider.create({
+      data: {
+        anime_id,
+        season,
+        title,
+        rating,
+        description,
+        image_url,
+        order: sliderCount,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    });
+  } catch (e) {
+    console.error(e);
+    throw new Error(`${e}`);
+  }
+};

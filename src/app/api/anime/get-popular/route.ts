@@ -14,6 +14,7 @@ export async function GET() {
           popular_order: "asc",
         },
       ],
+      include: { material_data: true },
     });
 
     return NextResponse.json(animeList);

@@ -14,11 +14,13 @@ export const ProfileButton = () => {
     const { data: nextAuthuser } = session;
     const user = nextAuthuser.user as IUser;
     return (
-      <Link href={`/profile/${user.id}`}>
+      <Link href={`/profile`}>
         <Button>
           <Image
             alt="Аватар"
             src={user.avatar_url ? user.avatar_url : Ic_Avatar_Placeholder}
+            width={40}
+            height={40}
           />
           <Typography variant="subtitle2">{user.login}</Typography>
         </Button>

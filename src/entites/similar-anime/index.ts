@@ -1,0 +1,1 @@
+export { SimilarAnime } from "./view";

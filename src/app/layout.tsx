@@ -10,6 +10,7 @@ import { MainContainer } from "@/shared/containers/main-container";
 import { Wrapper } from "@/shared/containers/root-wrapper";
 import { StylesProvider } from "@/providers/styles-provider";
 import { TanstackProvider } from "@/providers/tanstack-provider";
+import NextTopLoader from "nextjs-toploader";
 
 export const metadata: Metadata = {
   title: "Enshi.",
@@ -37,6 +38,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body className={getFonts()}>
+        <NextTopLoader color="#8C53FD" />
         <ServiceWorkerRegister />
         <TanstackProvider>
           <AuthProvider>

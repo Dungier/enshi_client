@@ -26,6 +26,7 @@ export async function POST(request: NextRequest) {
       where: {
         anime_id: anime_id,
       },
+      include: { material_data: true },
     });
     return NextResponse.json(anime);
   } catch (error) {

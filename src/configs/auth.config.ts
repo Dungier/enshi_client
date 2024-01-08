@@ -42,7 +42,8 @@ const authOptions: NextAuthOptions = {
           email: user.email,
           login: user.login,
           avatar_url: user.avatar_url,
-          minutes_watched: user.mintues_watched,
+          wallpaper_url: user.wallpaper_url,
+          minutes_watched: user.minutes_watched,
           createdAt: user.createdAt,
           admin: user.admin,
         };
@@ -79,6 +80,7 @@ const authOptions: NextAuthOptions = {
         token.email = user.email;
         token.login = user.login;
         token.avatar_url = user.avatar_url;
+        token.wallpaper_url = user.wallpaper_url;
         token.minutes_watched = user.minutes_watched;
         token.createdAt = user.createdAt;
         token.admin = user.admin;

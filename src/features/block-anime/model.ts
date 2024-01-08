@@ -1,18 +1,20 @@
-import { IAnime } from "@/shared/types/anime.types";
-import axios from "axios";
+"use server";
+import prisma from "@/configs/prisma.config";
 
-class BlockAnimeService {
-  public async blockAnime(id: number) {
-    try {
-      const { data } = await axios.post<IAnime>("/api/admin/block-anime", {
-        id,
-      });
-      return data;
-    } catch (e) {
-      console.error(e);
-      throw new Error(`${e}`);
-    }
+export const blockAnime = async (id: number) => {
+  try {
+    await prisma.anime.update({
+      where: {
+        anime_id: Number(id),
+      },
+      include: { material_data: true },
+
+      data: {
+        blocked: true,
+      },
+    });
+  } catch (e) {
+    console.error(e);
+    throw new Error(`${e}`);
   }
-}
-
-export default new BlockAnimeService();
+};

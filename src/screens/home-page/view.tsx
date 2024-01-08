@@ -21,6 +21,7 @@ export const HomePage: FC<IHomePage> = ({
   return (
     <main className="bg-red-900 dark:bg-blue-900">
       <HomeSlider sliders={sliders} />
+
       <Link href={"/catalog"}>
         <Typography>
           Популярное <Image src={Ic_Chevron} alt={"Популярное"} />

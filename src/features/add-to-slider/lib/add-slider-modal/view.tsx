@@ -4,7 +4,7 @@ import { Button, Dialog, TextField, Typography } from "@mui/material";
 import { FC, useCallback, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ICreateSlide } from "../../types";
-import AddSliderService from "../../model";
+import { addSlide } from "../../model";
 import { SelectedImage } from "@/shared/components/selected-image";
 import { SearchAnime } from "@/features/search-anime";
 import { IAnime } from "@/shared/types/anime.types";
@@ -17,15 +17,22 @@ interface AddSliderModalProps {
 
 export const AddSliderModal: FC<AddSliderModalProps> = ({ open, onClose }) => {
   const { register, handleSubmit } = useForm<ICreateSlide>();
-  const [file, setFile] = useState<File | null>(null);
-  const [responseData, setResponseData] = useState<IUploadPhotoResponse[]>([]);
+  const [bannerFile, setBannerFile] = useState<File | null>(null);
+  const [responseBannerData, setResponseBannerData] = useState<
+    IUploadPhotoResponse[]
+  >([]);
+  const [posterFile, setPosterFile] = useState<File | null>(null);
+  const [responsePosterData, setResponsePosterBannerData] = useState<
+    IUploadPhotoResponse[]
+  >([]);
   const [anime, setAnime] = useState<IAnime>();
   const queryClient = useQueryClient();
   const onSubmit: SubmitHandler<ICreateSlide> = async (data) => {
     anime &&
-      (await AddSliderService.addSlide({
+      (await addSlide({
         ...data,
-        image_url: responseData[0].url,
+        image_url: responseBannerData[0].url,
+        preview_image_url: responsePosterData[0].url,
         anime_id: anime.anime_id,
         season: Number(data.season),
         rating: Number(data.rating),
@@ -72,12 +79,32 @@ export const AddSliderModal: FC<AddSliderModalProps> = ({ open, onClose }) => {
           margin="normal"
           fullWidth
         />
-        <UploadPhoto setFile={setFile} setResponseData={setResponseData} />
+        <Typography>Баннер</Typography>
+        <UploadPhoto
+          setFile={setBannerFile}
+          setResponseData={setResponseBannerData}
+        />
+        {bannerFile && (
+          <>
+            <Typography>Загруженный баннер:</Typography>
+            <SelectedImage file={bannerFile} />
+          </>
+        )}
+        <Typography>Маленький постер</Typography>
+        <UploadPhoto
+          setFile={setPosterFile}
+          setResponseData={setResponsePosterBannerData}
+        />
+        {posterFile && (
+          <>
+            <Typography>Загруженный постер:</Typography>
+            <SelectedImage file={posterFile} />
+          </>
+        )}
         <Button type="submit" variant="contained" color="primary">
           Submit
         </Button>
       </form>
-      {file && <SelectedImage file={file} />}
     </Dialog>
   );
 };

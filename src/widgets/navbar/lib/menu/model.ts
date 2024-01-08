@@ -19,7 +19,7 @@ export const navList = (
 
     user
       ? {
-          link: `/profile/${user.id}`,
+          link: `/profile`,
           label: "Профиль",
         }
       : {
@@ -27,7 +27,7 @@ export const navList = (
           label: "Войти",
         },
     {
-      link: "/donate",
+      link: "https://vk.com/app5727453",
       label: "Поддержать нас",
     },
     user &&

@@ -15,6 +15,7 @@ export async function GET() {
       where: {
         blocked: true,
       },
+      include: { material_data: true },
     });
 
     return NextResponse.json(animeList);

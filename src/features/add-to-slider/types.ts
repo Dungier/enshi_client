@@ -4,5 +4,6 @@ export interface ICreateSlide {
   title: string;
   description: string;
   image_url: string;
+  preview_image_url: string;
   anime_id: number;
 }

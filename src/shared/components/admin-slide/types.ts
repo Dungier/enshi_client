@@ -4,7 +4,11 @@ import { IAnimeSlider } from "@/shared/types/slider.types";
 import { DraggableProvided } from "react-beautiful-dnd";
 
 export interface IDeleteSlide {
-  slider_id: string | number | null | undefined;
+  slider_id: number | undefined;
+}
+
+export interface IDeleteAnime {
+  id: number;
 }
 
 export interface IAdminSlider {

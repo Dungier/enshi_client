@@ -6,8 +6,8 @@ import { ChangeEvent, FC, useRef, useState } from "react";
 import { SearchList } from "./lib/search-list/view";
 import { useDebounce } from "@/shared/hooks/use-debounce";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import SearchAnimeService from "./model";
 import { IAnime } from "@/shared/types/anime.types";
+import { searchByName } from "./model";
 
 export const SearchAnime: FC<{ setAnime?: (arg: IAnime) => void }> = ({
   setAnime,
@@ -18,7 +18,7 @@ export const SearchAnime: FC<{ setAnime?: (arg: IAnime) => void }> = ({
   const anchorElRef = useRef<HTMLElement | null>(null);
 
   const fetchAnimes = async ({ pageParam = 1, limitParam = 10 }) => {
-    const result = await SearchAnimeService.searchByName({
+    const result = await searchByName({
       page: pageParam,
       limit: limitParam,
       name: searchTerm,

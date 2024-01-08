@@ -9,5 +9,6 @@ export interface ISearchAnime {
 export interface ISearchAnimeResponse {
   anime: IAnime[];
   totalPages: number;
+  totalItems: number;
   page: number;
 }

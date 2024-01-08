@@ -1,0 +1,1 @@
+export { ProfileWallpaper } from "./view";
