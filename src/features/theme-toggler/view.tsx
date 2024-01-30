@@ -17,10 +17,10 @@ export const ThemeToggler = forwardRef<HTMLDivElement>((props, ref) => {
   return (
     <ThemeTogglerStyles {...props} onClick={toggleMode}>
       <IconStyles>
-        <Image src={IcSun} alt={"Светлая тема"} />
+        <Image src={IcMoon} alt={"Темная тема"} width={20} height={20} />
       </IconStyles>
       <IconStyles>
-        <Image src={IcMoon} alt={"Темная тема"} />
+        <Image src={IcSun} alt={"Светлая тема"} width={20} height={20} />
       </IconStyles>
       <ThemeTogglerCircleStyles mode={mode} />
     </ThemeTogglerStyles>

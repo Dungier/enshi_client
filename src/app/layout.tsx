@@ -4,13 +4,13 @@ import { AuthProvider } from "@/providers/auth-provider";
 import { ColorModeProvider } from "@/shared/context/color-mode";
 import { Footer } from "@/widgets/footer";
 import { NavBar } from "@/widgets/navbar";
-import { getFonts } from "@/assets/fonts";
 import { PalleteTheme } from "@/assets/pallete-theme";
 import { MainContainer } from "@/shared/containers/main-container";
 import { Wrapper } from "@/shared/containers/root-wrapper";
 import { StylesProvider } from "@/providers/styles-provider";
 import { TanstackProvider } from "@/providers/tanstack-provider";
 import NextTopLoader from "nextjs-toploader";
+import { Montserrat } from "next/font/google";
 
 export const metadata: Metadata = {
   title: "Enshi.",
@@ -30,6 +30,13 @@ export const metadata: Metadata = {
   ],
 };
 
+export const montserrat = Montserrat({
+  subsets: ["latin", "cyrillic"],
+  weight: ["500", "600", "700"],
+  variable: "--montserrat-font",
+  display: "swap",
+});
+
 export default function RootLayout({
   children,
 }: {
@@ -37,7 +44,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
-      <body className={getFonts()}>
+      <body className={montserrat.className}>
         <NextTopLoader color="#8C53FD" />
         <ServiceWorkerRegister />
         <TanstackProvider>

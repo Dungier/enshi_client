@@ -40,7 +40,7 @@ export const SearchList: FC<ISearchList> = ({
       }}
     >
       <Virtuoso
-        style={{ width: 500, height: 500 }}
+        style={{ width: 350, height: 450 }}
         endReached={() => fetchMore()}
         data={pagedAnimes?.pages?.flatMap((page) => page.anime)}
         itemContent={(index, anime: IAnime) =>
@@ -49,7 +49,7 @@ export const SearchList: FC<ISearchList> = ({
           ) : (
             anime && (
               <Box
-                key={anime ? anime.id : Math.random()}
+                key={anime.id}
                 onClick={() => {
                   setAnime && setAnime(anime);
                   setOpen(false);
@@ -59,7 +59,7 @@ export const SearchList: FC<ISearchList> = ({
                   setAnime={setAnime}
                   id={anime.anime_id}
                   title={anime.title}
-                  rating={0}
+                  rating={anime.rating}
                   photoURL={anime.material_data?.poster_url}
                 />
               </Box>

@@ -1,9 +1,11 @@
-import { ChangePassword } from "@/features/change-password";
+"use server";
+
+import { ChangeCredentials } from "@/widgets/change-credentials";
 
 export const SettingsPage = () => {
   return (
     <main>
-      <ChangePassword />
+      <ChangeCredentials />
     </main>
   );
 };

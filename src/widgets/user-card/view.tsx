@@ -5,7 +5,7 @@ import { Box, Typography, Grid } from "@mui/material";
 import Image from "next/image";
 import { UserStatus } from "@/shared/components/user-status";
 import { LogoutButton } from "@/shared/components/logout-button";
-import { Settings } from "@/entites/settings-button";
+import { Settings } from "@/shared/components/settings-button";
 
 export const UserCard: FC<UserCardProps> = ({ user }) => {
   return (

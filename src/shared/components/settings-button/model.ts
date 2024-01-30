@@ -10,3 +10,9 @@ export const checkEmail = async (email: string): Promise<boolean> => {
   const emailExsists = await prisma.user.findFirst({ where: { email } });
   return !!emailExsists;
 };
+
+
+export const changePassword = async (email: string): Promise<boolean> => {
+  const emailExsists = await prisma.user.findFirst({ where: { email } });
+  return !!emailExsists;
+};

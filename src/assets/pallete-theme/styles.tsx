@@ -24,86 +24,66 @@ export const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
     fontSize: 14,
     ...(mode === "light" && {
       h1: {
-        color: "#FFFFFF",
-        fontSize: "2.1875rem",
-        fontWeight: 700,
+        color: "#1F1F25",
+        fontSize: "1.5rem",
+        fontWeight: 600,
+        letterSpacing: "0.92px",
       },
     }),
     ...(mode === "dark" && {
       h1: {
         color: "#FFFFFF",
-        fontSize: "2.1875rem",
-        fontWeight: 700,
+        fontSize: "1.5rem",
+        fontWeight: 600,
+        letterSpacing: "0.92px",
       },
     }),
     ...(mode === "light" && {
       h2: {
-        color: "#0E0E0E",
-        fontSize: "1.875rem",
-        lineHeight: "2.375rem",
-        fontWeight: 600,
+        color: "#29282E",
+        fontSize: "1.125rem",
+        fontWeight: 500,
+        letterSpacing: "0.72px",
       },
     }),
     ...(mode === "dark" && {
       h2: {
         color: "#FFFFFF",
-        fontSize: "1.875rem",
-        lineHeight: "2.375rem",
-        fontWeight: 600,
-      },
-    }),
-    ...(mode === "light" && {
-      h3: {
-        color: "#0E0E0E",
-        fontSize: "1.25rem",
-        lineHeight: "1.75rem",
-        fontWeight: 600,
-      },
-    }),
-    ...(mode === "dark" && {
-      h3: {
-        color: "#FFFFFF",
-        fontSize: "1.25rem",
-        lineHeight: "1.75rem",
-        fontWeight: 600,
+        fontSize: "1.125rem",
+        fontWeight: 500,
+        letterSpacing: "0.72px",
       },
     }),
     ...(mode === "light" && {
       subtitle1: {
-        fontSize: "1rem",
-        lineHeight: "1.5rem",
-        color: "#0E0E0E",
-        fontWeight: 500,
-        "& > span": {
-          fontWeight: 600,
-        },
+        color: "#1F1F25",
+        fontSize: "0.95rem",
+        fontWeight: 600,
+        letterSpacing: "0.3px",
       },
     }),
     ...(mode === "dark" && {
       subtitle1: {
-        fontSize: "1rem",
-        lineHeight: "1.5rem",
-        color: "#FFFFFF",
-        fontWeight: 500,
-        "& > span": {
-          fontWeight: 600,
-        },
+        color: "#F5F5F5",
+        fontSize: "0.95rem",
+        fontWeight: 600,
+        letterSpacing: "0.3px",
       },
     }),
     ...(mode === "light" && {
       subtitle2: {
-        fontSize: "1rem",
-        lineHeight: "1.5rem",
-        color: "#A9B7BD",
-        fontWeight: 500,
+        color: "#828282",
+        fontSize: "0.875rem",
+        fontWeight: 600,
+        letterSpacing: "0.28px",
       },
     }),
     ...(mode === "dark" && {
       subtitle2: {
-        fontSize: "1rem",
-        lineHeight: "1.5rem",
-        color: "#A9B7BD",
-        fontWeight: 500,
+        color: "#B1ADB1",
+        fontSize: "0.875rem",
+        fontWeight: 600,
+        letterSpacing: "0.28px",
       },
     }),
   },
@@ -169,12 +149,18 @@ export const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
     MuiButton: {
       styleOverrides: {
         root: {
-          background: "#7C69F4",
+          ...(mode === "dark" && {
+            background: "#424242",
+          }),
+          ...(mode === "light" && {
+            background: "#7C69F4",
+          }),
+          color: "#FFFFFF",
           padding: "0.875rem 1.5rem",
           borderRadius: "10px",
           fontSize: "1rem",
           lineHeight: "1.5rem",
-          color: "#FFFFFF",
+
           fontWeight: 500,
           textTransform: "none",
           display: "inline-flex",

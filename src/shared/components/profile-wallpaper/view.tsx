@@ -1,4 +1,4 @@
-"use server";
+"use client";
 import { FC } from "react";
 import { ProfileWallpaperProps } from "./types";
 import Image from "next/image";

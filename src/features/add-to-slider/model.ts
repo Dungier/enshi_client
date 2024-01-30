@@ -4,7 +4,7 @@ import { ICreateSlide } from "./types";
 
 export const addSlide = async (dto: ICreateSlide) => {
   try {
-    const { season, title, anime_id, rating, description, image_url } = dto;
+    const { season, title, anime_id, rating, description, image_url, preview_image_url } = dto;
 
     const sliderCount = await prisma.homeSlider.count();
 
@@ -17,6 +17,7 @@ export const addSlide = async (dto: ICreateSlide) => {
         description,
         image_url,
         order: sliderCount,
+        preview_image_url,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

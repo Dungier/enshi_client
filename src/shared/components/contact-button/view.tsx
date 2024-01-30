@@ -1,5 +1,6 @@
-import { Button } from "@mui/material";
+"use server";
+import { StyledContactButton } from "./styles";
 
 export const ContactButton = () => {
-  return <Button>Написать нам</Button>;
+  return <StyledContactButton>Написать нам</StyledContactButton>;
 };

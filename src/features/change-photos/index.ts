@@ -1,0 +1,1 @@
+export { ChangePhotos } from "./view";

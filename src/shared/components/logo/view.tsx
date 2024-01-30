@@ -1,10 +1,13 @@
-import { Typography } from "@mui/material";
-import { StyledSpan } from "./styles";
+"use server";
+import Link from "next/link";
+import { StyledSpan, StyledLogo } from "./styles";
 
 export const Logo = () => {
   return (
-    <Typography variant="h1">
-      ENSHI<StyledSpan>.</StyledSpan>
-    </Typography>
+    <Link href="/" style={{ textDecoration: "none" }}>
+      <StyledLogo>
+        ENSHI<StyledSpan>.</StyledSpan>
+      </StyledLogo>{" "}
+    </Link>
   );
 };

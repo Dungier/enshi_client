@@ -23,6 +23,7 @@ export interface IAnime {
   material_data: IMaterialData;
   createdAt: Date;
   updatedAt: Date;
+  rating: number;
 }
 
 export interface IMaterialData {

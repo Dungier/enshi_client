@@ -9,10 +9,10 @@ type ThemeTogglerProps = {
 };
 
 export const ThemeTogglerStyles = styled("div")(({ theme }) => ({
-  width: "56px",
-  height: "22px",
-  background: "#070709",
-  borderRadius: "3px",
+  width: 80,
+  height: "38px",
+  background: "#333238",
+  borderRadius: 8,
   position: "relative",
   cursor: "pointer",
   display: "flex",
@@ -24,19 +24,21 @@ export const ThemeTogglerStyles = styled("div")(({ theme }) => ({
 export const IconStyles = styled("span")(({ theme }) => ({
   position: "relative",
   zIndex: 5,
-  top: "3px",
-  padding: "0 3px",
+  width: 40,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 }));
 
 export const ThemeTogglerCircleStyles = styled("div")<ThemeTogglerProps>(
   ({ theme, mode }) => ({
-    width: "28px",
+    width: "40px",
     height: "100%",
-    background: theme.palette.purple.main,
+    background: "#434249",
     position: "absolute",
-    borderRadius: "3px",
+    borderRadius: 8,
     transition: "all 0.3s ease-in-out",
-    transform: `translateX(${mode === "light" ? "0" : "28px"})`,
+    transform: `translateX(${mode === "dark" ? "0" : "40px"})`,
     top: "0",
     zIndex: 1,
   })

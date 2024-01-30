@@ -40,6 +40,7 @@ export const AddSliderModal: FC<AddSliderModalProps> = ({ open, onClose }) => {
     queryClient.refetchQueries({ queryKey: ["admin-get-sliders"] });
     onClose(false);
   };
+  
   const handleSetAnime = useCallback(
     (anime: IAnime) => {
       setAnime(anime);
