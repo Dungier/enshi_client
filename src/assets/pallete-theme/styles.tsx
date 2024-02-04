@@ -122,8 +122,8 @@ export const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
     }),
     ...(mode === "dark" && {
       background: {
-        default: "#333238",
-        paper: "#333238",
+        default: "#16151A",
+        paper: "#16151A",
       },
     }),
     ...(mode === "light" && {

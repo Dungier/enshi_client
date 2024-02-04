@@ -15,26 +15,25 @@ export const SearchAnime: FC<{ setAnime?: (arg: IAnime) => void }> = ({
 }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const debouncedSearch = useDebounce(searchTerm, 500);
+  const debouncedSearch = useDebounce(searchTerm, 250);
   const anchorElRef = useRef<HTMLElement | null>(null);
 
-  const fetchAnimes = async ({ pageParam = 1, limitParam = 10 }) => {
-    const result = await searchByName({
+  const fetchAnime = async ({ pageParam = 1, limitParam = 10 }) => {
+    return await searchByName({
       page: pageParam,
       limit: limitParam,
       name: searchTerm,
     });
-    return result;
   };
 
   const {
-    data: pagedAnimes,
+    data: pagedAnime,
     fetchNextPage,
     hasNextPage,
     isLoading,
   } = useInfiniteQuery({
     queryKey: ["search-anime", searchTerm],
-    queryFn: fetchAnimes,
+    queryFn: fetchAnime,
     enabled: !!debouncedSearch,
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
@@ -51,9 +50,8 @@ export const SearchAnime: FC<{ setAnime?: (arg: IAnime) => void }> = ({
   };
 
   const fetchMore = () => {
-    if (hasNextPage) fetchNextPage();
+    hasNextPage ? fetchNextPage() : null;
   };
-
   return (
     <StyledSearchContainer>
       <FormGroup
@@ -73,7 +71,7 @@ export const SearchAnime: FC<{ setAnime?: (arg: IAnime) => void }> = ({
         onClose={() => setOpen(false)}
         open={open}
         anchorEl={anchorElRef.current}
-        pagedAnimes={pagedAnimes}
+        pagedAnimes={pagedAnime}
         isLoading={isLoading}
         fetchMore={fetchMore}
       />

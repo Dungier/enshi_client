@@ -45,7 +45,7 @@ export const SearchList: FC<ISearchList> = ({
         data={pagedAnimes?.pages?.flatMap((page) => page.anime)}
         itemContent={(index, anime: IAnime) =>
           isLoading ? (
-            <Typography>Загрузка</Typography>
+            <></>
           ) : (
             anime && (
               <Box

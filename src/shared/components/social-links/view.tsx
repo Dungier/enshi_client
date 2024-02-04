@@ -1,13 +1,17 @@
-"use server";
+"use client";
 import Image from "next/image";
 import Ic_Yt from "@/assets/icons/ic_yt.svg";
 import Ic_Tg from "@/assets/icons/ic_tg.svg";
 import Ic_Vk from "@/assets/icons/ic_vk.svg";
 import Link from "next/link";
 import { StyledContactButton, StyledContainer } from "./styles";
+import { useMediaQuery } from "@mui/material";
 
 export const SocialLinks = () => {
-  return (
+  const isMobile = useMediaQuery("(max-width: 1600px)");
+  return isMobile ? (
+    <></>
+  ) : (
     <StyledContainer>
       <Link href={""}>
         <StyledContactButton>

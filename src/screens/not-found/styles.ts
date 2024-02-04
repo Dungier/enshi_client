@@ -6,7 +6,7 @@ export const StyledContainer = styled("div")(() => ({
   width: "100%",
   display: "flex",
   alignItems: "center",
-  justifyContent: "center",
+  justifyContent: "space-around",
   flexWrap: "wrap",
   gap: 50,
   padding: 40,

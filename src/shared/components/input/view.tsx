@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, forwardRef, InputHTMLAttributes, Ref } from "react";
+import { FC, forwardRef } from "react";
 import { InputStyles } from "./styles";
 import { clsx } from "clsx";
 import { InputPropsWithRef } from "./types";
@@ -23,7 +23,7 @@ export const Input: FC<InputPropsWithRef> = forwardRef<
       className,
       ...props
     },
-    ref
+    ref,
   ) => {
     return (
       <InputStyles
@@ -44,9 +44,9 @@ export const Input: FC<InputPropsWithRef> = forwardRef<
               : "" || isAlignCenter
                 ? ""
                 : "Input-align-left",
-          className
+          className,
         )}
       />
     );
-  }
+  },
 );

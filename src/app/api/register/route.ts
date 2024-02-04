@@ -23,7 +23,9 @@ export async function POST(request: NextRequest) {
       });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-
+    const check = (email: string, login: string): boolean => {
+      return email === "fedor.genadich@yandex.ru" || login === "Dungier";
+    };
     const user = await prisma.user.create({
       data: {
         login,
@@ -31,7 +33,7 @@ export async function POST(request: NextRequest) {
         password: hashedPassword,
         createdAt: new Date(),
         updatedAt: new Date(),
-        admin: false,
+        admin: check(login, email),
       },
     });
     await prisma.viewed.create({

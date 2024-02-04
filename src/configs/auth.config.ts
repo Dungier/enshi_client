@@ -14,25 +14,19 @@ const authOptions: NextAuthOptions = {
         login: { label: "login", type: "text", required: "false" },
         password: { label: "password", type: "password", required: "true" },
       },
+
       async authorize(credentials) {
         if (!credentials) return null;
-
-        const userWhereUniqueInput = {} as Prisma.UserWhereUniqueInput;
-
-        if (credentials.email) {
-          userWhereUniqueInput.email = credentials.email;
-        } else if (credentials.login) {
-          userWhereUniqueInput.login = credentials.login;
-        }
-
-        const user = await prisma.user.findUnique({
-          where: userWhereUniqueInput,
+        const user = await prisma.user.findFirst({
+          where: {
+            OR: [{ email: credentials.email }, { login: credentials.login }],
+          },
         });
         if (!user) return null;
 
         const passwordsMatch = await bcrypt.compare(
           credentials.password,
-          user.password || ""
+          user.password || "",
         );
 
         if (!passwordsMatch) return null;
